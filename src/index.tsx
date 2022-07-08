@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import Routes from "./routes";
-
+import "./basicStyles.css";
 const MainComponent: React.FC = () => {
   return (
     <React.StrictMode>

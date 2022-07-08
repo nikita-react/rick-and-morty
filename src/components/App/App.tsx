@@ -1,6 +1,6 @@
 import React from "react";
 
 const App: React.FC<{ children: JSX.Element }> = ({ children }) => (
-  <div>{children}</div>
+  <>{children}</>
 );
 export default App;
