@@ -8,7 +8,9 @@ const Header: React.FC = () => {
     <HeaderNavigation>
       <Container>
         <Wrapper>
-          <Image imageSrc={logo} width={"120px"} />
+          <LinkStyled to="/">
+            <Image imageSrc={logo} width={"120px"} />
+          </LinkStyled>
           <List>
             <Item>
               <LinkStyled to="/character">Character</LinkStyled>
