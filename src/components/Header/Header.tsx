@@ -13,13 +13,13 @@ const Header: React.FC = () => {
           </LinkStyled>
           <List>
             <Item>
-              <LinkStyled to="/character">Character</LinkStyled>
+              <LinkStyled to="character">Character</LinkStyled>
             </Item>
             <Item>
-              <LinkStyled to="/location">Location</LinkStyled>
+              <LinkStyled to="location">Location</LinkStyled>
             </Item>
             <Item>
-              <LinkStyled to="/episode">Episode</LinkStyled>
+              <LinkStyled to="episode">Episode</LinkStyled>
             </Item>
           </List>
         </Wrapper>

@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Wrapper } from "./styled";
+import React, { useEffect } from "react";
 import Character from "../Character";
 import api from "../../api";
+import { useRecoilState } from "recoil";
+import { charactersState } from "../../atoms";
+import { RenderWrapper } from "../../mainStyled";
 
 const RenderCharacters: React.FC = () => {
-  const [characters, setCharacters] = useState<any[]>([]);
+  const [characters, setCharacters] = useRecoilState(charactersState);
 
   useEffect(() => {
     const getData = async () => {
@@ -16,12 +18,12 @@ const RenderCharacters: React.FC = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <RenderWrapper>
       {characters &&
         characters.map((character) => (
           <Character key={character.id} character={character} />
         ))}
-    </Wrapper>
+    </RenderWrapper>
   );
 };
 

@@ -3,18 +3,18 @@ import { CardCharacter, Text } from "./styled";
 import Image from "../Image";
 
 interface CharacterProps {
-  character: CharacterObject;
+  character: {
+    name: string;
+    image: string;
+  };
 }
-interface CharacterObject {
-  name: string;
-  image: string;
-}
+
 const Character: React.FC<CharacterProps> = ({ character }) => {
   const { name, image } = character;
 
   return (
     <CardCharacter>
-      <Image imageSrc={image} width={"250px"} />
+      <Image imageSrc={image} />
       <Text>{name}</Text>
     </CardCharacter>
   );

@@ -8,3 +8,11 @@ export const Container = styled.div`
 `;
 
 export const LinkStyled = styled(Link)``;
+
+export const RenderWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(236px, 1fr));
+  grid-gap: 20px;
+  justify-items: center;
+  padding: 20px 0;
+`;

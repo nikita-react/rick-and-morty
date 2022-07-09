@@ -2,11 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import Routes from "./routes";
+import { RecoilRoot } from "recoil";
 import "./basicStyles.css";
 const MainComponent: React.FC = () => {
   return (
     <React.StrictMode>
-      <Routes />
+      <RecoilRoot>
+        <Routes />
+      </RecoilRoot>
     </React.StrictMode>
   );
 };
