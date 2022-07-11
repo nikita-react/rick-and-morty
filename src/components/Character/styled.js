@@ -5,3 +5,4 @@ export const CardCharacter = styled.div`
   overflow: hidden;
 `;
 export const Text = styled.p``;
+export const Image = styled.img``;

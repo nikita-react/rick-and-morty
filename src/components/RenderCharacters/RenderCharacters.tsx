@@ -7,16 +7,13 @@ import { RenderWrapper } from "../../mainStyled";
 
 const RenderCharacters: React.FC = () => {
   const [characters, setCharacters] = useRecoilState(charactersState);
-
   useEffect(() => {
     const getData = async () => {
-      const data = await api.characters.getCharacters();
-      const { results } = data;
+      const { results } = await api.characters.getCharacters();
       setCharacters(results);
     };
     getData();
   }, []);
-
   return (
     <RenderWrapper>
       {characters &&

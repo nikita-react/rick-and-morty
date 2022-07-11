@@ -6,6 +6,8 @@ const api = {
   characters: {
     getCharacters: (): Promise<any> =>
       fetch(CHARACTERS_URL).then((res) => res.json()),
+    getOneCharacter: (id: any): Promise<any> =>
+      fetch(`${CHARACTERS_URL}/${id}`).then((res) => res.json()),
   },
   locations: {
     getLocations: (): Promise<any> =>

@@ -17,10 +17,7 @@ const Routing: React.FC = () => {
             <Route index element={<IndexComponent />} />
 
             <Route path="character" element={<RenderCharacters />} />
-            <Route
-              path="character/:characterId"
-              element={<RenderOneCharacter />}
-            />
+            <Route path="character/:id" element={<RenderOneCharacter />} />
             <Route path="location" element={<RenderLocations />} />
             <Route path="*" element={<NotFound />} />
           </Route>

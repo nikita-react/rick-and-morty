@@ -1,22 +1,25 @@
 import React from "react";
-import { CardCharacter, Text } from "./styled";
-import Image from "../Image";
+import { CardCharacter, Text, Image } from "./styled";
+import { LinkStyled } from "../../mainStyled";
 
 interface CharacterProps {
   character: {
     name: string;
     image: string;
+    id: string;
   };
 }
 
 const Character: React.FC<CharacterProps> = ({ character }) => {
-  const { name, image } = character;
+  const { name, image, id } = character;
 
   return (
-    <CardCharacter>
-      <Image imageSrc={image} />
-      <Text>{name}</Text>
-    </CardCharacter>
+    <LinkStyled to={`${id}`}>
+      <CardCharacter>
+        <Image src={image} />
+        <Text>{name}</Text>
+      </CardCharacter>
+    </LinkStyled>
   );
 };
 

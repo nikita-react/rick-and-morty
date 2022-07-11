@@ -1,7 +1,6 @@
 import React from "react";
-import { HeaderNavigation, List, Item, Wrapper } from "./styled";
+import { HeaderNavigation, List, Item, Wrapper, Image } from "./styled";
 import { Container, LinkStyled } from "../../mainStyled";
-import Image from "../Image";
 import logo from "../../images/Rick-and-Morty__svg-logo.svg";
 const Header: React.FC = () => {
   return (
@@ -9,7 +8,7 @@ const Header: React.FC = () => {
       <Container>
         <Wrapper>
           <LinkStyled to="/">
-            <Image imageSrc={logo} width={"120px"} />
+            <Image src={logo} />
           </LinkStyled>
           <List>
             <Item>
