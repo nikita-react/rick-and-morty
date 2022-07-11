@@ -1,0 +1,32 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.btn {
+  background-color: #82ba42;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn a,
+.pageBtn a {
+  color: #fff;
+}
+
+.pageBtn a {
+  background-color: #82ba42c2;
+  margin: 0 5px;
+  border-radius: 5px;
+  min-width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 100%;
+}
+
+.pageBtn.selected a {
+  background-color: #82ba42;
+}

@@ -14,5 +14,4 @@ export const RenderWrapper = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(236px, 1fr));
   grid-gap: 20px;
   justify-items: center;
-  padding: 20px 0;
 `;

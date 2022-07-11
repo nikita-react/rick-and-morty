@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const charactersState = atom<any[]>({
+export const charactersState = atom<any>({
   key: "characters",
   default: [],
 });
