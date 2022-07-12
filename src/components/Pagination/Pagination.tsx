@@ -1,14 +1,21 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 interface Props {
   setPageNumber: React.Dispatch<React.SetStateAction<number>>;
-  pageNumber: number;
   pages: number;
+  currentPage: number;
 }
 
-const Pagination: React.FC<Props> = ({ setPageNumber, pageNumber, pages }) => {
+const Pagination: React.FC<Props> = ({ setPageNumber, pages, currentPage }) => {
+  const navigate = useNavigate();
+  const pageChange = (data: any) => {
+    const correctPage = data.selected + 1;
+    setPageNumber(correctPage);
+    navigate(`/character/page=${correctPage}`);
+  };
   return (
     <>
       <ReactPaginate
@@ -22,7 +29,8 @@ const Pagination: React.FC<Props> = ({ setPageNumber, pageNumber, pages }) => {
         activeClassName="active"
         pageRangeDisplayed={10}
         marginPagesDisplayed={1}
-        onPageChange={(data) => setPageNumber(data.selected + 1)}
+        onPageChange={(data) => pageChange(data)}
+        forcePage={currentPage - 1}
       />
     </>
   );

@@ -27,6 +27,7 @@
   height: 100%;
 }
 
-.pageBtn.selected a {
+.pageBtn.active a {
   background-color: #82ba42;
+  font-weight: 700;
 }

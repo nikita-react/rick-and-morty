@@ -14,7 +14,7 @@ const Character: React.FC<CharacterProps> = ({ character }) => {
   const { name, image, id } = character;
 
   return (
-    <LinkStyled to={`${id}`}>
+    <LinkStyled to={`/character/${id}`}>
       <CardCharacter>
         <Image src={image} />
         <Text>{name}</Text>
