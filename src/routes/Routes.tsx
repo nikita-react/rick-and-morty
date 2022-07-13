@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import App from "../components/App";
 import IndexComponent from "../components/IndexComponent";
 import Layout from "../components/Layout";
@@ -7,12 +7,14 @@ import RenderCharacters from "../components/RenderCharacters";
 import RenderLocations from "../components/RenderLocations";
 import RenderOneCharacter from "../components/RenderOneCharacter";
 import NotFound from "../components/NotFound";
+import { AnimatePresence } from "framer-motion";
 
 const Routing: React.FC = () => {
+  const location = useLocation();
   return (
-    <BrowserRouter>
-      <App>
-        <Routes>
+    <App>
+      <AnimatePresence>
+        <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Layout />}>
             <Route index element={<IndexComponent />} />
 
@@ -23,8 +25,8 @@ const Routing: React.FC = () => {
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
-      </App>
-    </BrowserRouter>
+      </AnimatePresence>
+    </App>
   );
 };
 

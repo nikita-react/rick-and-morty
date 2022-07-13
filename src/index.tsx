@@ -3,12 +3,16 @@ import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import Routes from "./routes";
 import { RecoilRoot } from "recoil";
+import { BrowserRouter } from "react-router-dom";
 import "./basicStyles.css";
+
 const MainComponent: React.FC = () => {
   return (
     <React.StrictMode>
       <RecoilRoot>
-        <Routes />
+        <BrowserRouter>
+          <Routes />
+        </BrowserRouter>
       </RecoilRoot>
     </React.StrictMode>
   );
