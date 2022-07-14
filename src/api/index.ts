@@ -1,4 +1,4 @@
-const LOCATIONS_URL: string = "https://rickandmortyapi.com/api/location";
+const LOCATION_URL: string = "https://rickandmortyapi.com/api/location";
 const EPISODES_URL: string = "https://rickandmortyapi.com/api/episode";
 const CHARACTERS_URL: string = "https://rickandmortyapi.com/api/character";
 
@@ -10,8 +10,8 @@ const api = {
       fetch(`${CHARACTERS_URL}/${id}`).then((res) => res.json()),
   },
   locations: {
-    getLocations: (): Promise<any> =>
-      fetch(LOCATIONS_URL).then((res) => res.json()),
+    getLocation: (id: any): Promise<any> =>
+      fetch(`${LOCATION_URL}/${id}`).then((res) => res.json()),
   },
   episodes: {
     getLocations: (): Promise<any> =>

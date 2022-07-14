@@ -3,7 +3,7 @@ import Character from "../Character";
 import api from "../../api";
 import { useRecoilState } from "recoil";
 import { charactersState } from "../../atoms";
-import { RenderWrapper } from "../../mainStyled";
+import { RenderWrapper } from "./styled";
 import Pagination from "../Pagination";
 import { useParams } from "react-router-dom";
 import Loading from "../Loading";

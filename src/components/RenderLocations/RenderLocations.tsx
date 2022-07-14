@@ -1,22 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../../api";
 import { useRecoilState } from "recoil";
 import { locationsState } from "../../atoms";
-import { RenderWrapper } from "../../mainStyled";
+import Location from "../Location";
+import { RenderWrapper } from "./styled";
 
 const RenderLocations: React.FC = () => {
-  const [locations, setLocations] = useRecoilState(locationsState);
+  const [location, setLocation] = useRecoilState(locationsState);
+  const [pageNumber, setPageNumber] = useState<number>(1);
 
   useEffect(() => {
     const getData = async () => {
-      const data = await api.locations.getLocations();
-      const { results } = data;
-      setLocations(results);
+      const data = await api.locations.getLocation(pageNumber);
+
+      setLocation(data);
     };
     getData();
   }, []);
 
-  return <RenderWrapper>location</RenderWrapper>;
+  return (
+    <RenderWrapper>
+      <Location location={location} />
+    </RenderWrapper>
+  );
 };
 
 export default RenderLocations;

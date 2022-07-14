@@ -5,7 +5,7 @@ export const charactersState = atom<any>({
   default: [],
 });
 
-export const locationsState = atom<any[]>({
+export const locationsState = atom<any>({
   key: "locations",
   default: [],
 });
