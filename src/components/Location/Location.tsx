@@ -1,5 +1,11 @@
 import React from "react";
 import { List, Item } from "./styled";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, A11y } from "swiper";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 interface LocationTypes {
   location: {
@@ -13,7 +19,6 @@ const Location: React.FC<LocationTypes> = ({ location }) => {
   const { residents } = location;
   const arrayOfImages =
     residents && residents.map((resident: any) => resident.split("/").pop());
-  console.log(arrayOfImages);
 
   return (
     <List>
@@ -21,15 +26,25 @@ const Location: React.FC<LocationTypes> = ({ location }) => {
       <Item>type: {location.type}</Item>
       <Item>dimension: {location.dimension}</Item>
       <Item>
-        residents:{" "}
-        {arrayOfImages &&
-          arrayOfImages.map((id) => (
-            <img
-              key={id}
-              src={`https://rickandmortyapi.com/api/character/avatar/${id}.jpeg`}
-              alt=""
-            />
-          ))}
+        residents:
+        <Swiper
+          modules={[Navigation, Pagination, A11y]}
+          spaceBetween={50}
+          slidesPerView={3}
+          navigation
+          pagination={{ clickable: true }}
+          style={{ padding: "20px 45px 35px" }}
+        >
+          {arrayOfImages &&
+            arrayOfImages.map((id) => (
+              <SwiperSlide key={id}>
+                <img
+                  src={`https://rickandmortyapi.com/api/character/avatar/${id}.jpeg`}
+                  alt=""
+                />
+              </SwiperSlide>
+            ))}
+        </Swiper>
       </Item>
     </List>
   );
