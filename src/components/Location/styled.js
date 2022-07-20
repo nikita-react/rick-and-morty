@@ -12,3 +12,5 @@ export const Item = styled.li`
     background-color: #dcdcdc;
   }
 `;
+
+export const Img = styled.img``;

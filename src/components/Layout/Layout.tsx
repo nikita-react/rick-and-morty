@@ -12,7 +12,7 @@ const Layout: React.FC = () => {
       <motion.div
         initial={{ x: "-300px", opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        style={{ flexGrow: 1, display: "flex" }}
+        style={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
       >
         <Content>
           <Container flexGrow={1} display={"flex"} flexDirection={"column"}>

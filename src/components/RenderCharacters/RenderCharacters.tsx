@@ -10,6 +10,7 @@ import Loading from "../Loading";
 
 const RenderCharacters: React.FC = () => {
   const { id } = useParams();
+
   const [characters, setCharacters] = useRecoilState(charactersState);
   const [loading, setLoading] = useState(true);
   const { results, info }: { results: any[]; info: any } = characters;
@@ -21,7 +22,7 @@ const RenderCharacters: React.FC = () => {
       setLoading(false);
     };
     getData();
-  }, [id]);
+  }, []);
 
   return (
     <>

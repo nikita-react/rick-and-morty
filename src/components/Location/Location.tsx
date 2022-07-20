@@ -1,7 +1,7 @@
 import React from "react";
-import { List, Item } from "./styled";
+import { List, Item, Img } from "./styled";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, A11y } from "swiper";
+import { Navigation, Pagination } from "swiper";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -28,17 +28,17 @@ const Location: React.FC<LocationTypes> = ({ location }) => {
       <Item>
         residents:
         <Swiper
-          modules={[Navigation, Pagination, A11y]}
-          spaceBetween={50}
+          modules={[Navigation, Pagination]}
           slidesPerView={3}
           navigation
           pagination={{ clickable: true }}
           style={{ padding: "20px 45px 35px" }}
+          spaceBetween={45}
         >
           {arrayOfImages &&
             arrayOfImages.map((id) => (
               <SwiperSlide key={id}>
-                <img
+                <Img
                   src={`https://rickandmortyapi.com/api/character/avatar/${id}.jpeg`}
                   alt=""
                 />
