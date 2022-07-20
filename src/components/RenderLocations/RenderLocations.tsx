@@ -26,7 +26,6 @@ const RenderLocations: React.FC = () => {
     };
     getData();
   }, []);
-  console.log(id);
 
   return (
     <>
