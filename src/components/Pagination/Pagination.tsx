@@ -2,19 +2,21 @@ import React from "react";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
+import { useLocation } from "react-router-dom";
 
 interface Props {
-  setPageNumber: React.Dispatch<React.SetStateAction<number>>;
   pages: number;
   currentPage: number;
 }
 
-const Pagination: React.FC<Props> = ({ setPageNumber, pages, currentPage }) => {
+const Pagination: React.FC<Props> = ({ pages, currentPage }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const pageChange = (data: any) => {
     const correctPage = data.selected + 1;
-    setPageNumber(correctPage);
-    navigate(`/character/page=${correctPage}`);
+    const currentLocation = location.pathname.split("=").shift();
+    navigate(`${currentLocation}=${correctPage}`);
   };
   return (
     <>

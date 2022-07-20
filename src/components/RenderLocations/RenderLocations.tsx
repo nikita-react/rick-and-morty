@@ -4,24 +4,40 @@ import { useRecoilState } from "recoil";
 import { locationsState } from "../../atoms";
 import Location from "../Location";
 import { RenderWrapper } from "./styled";
+import Pagination from "../Pagination";
+import { useParams } from "react-router-dom";
+import Loading from "../Loading";
 
 const RenderLocations: React.FC = () => {
+  const { id } = useParams();
+
   const [location, setLocation] = useRecoilState(locationsState);
-  const [pageNumber, setPageNumber] = useState<number>(1);
+  const [pages, setPages] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const getData = async () => {
-      const data = await api.locations.getLocation(pageNumber);
+      const data = await api.locations.getOneLocation(id);
+      const { info } = await api.locations.getLocations();
 
       setLocation(data);
+      setPages(info.count);
+      setLoading(false);
     };
     getData();
-  }, []);
+  }, [id]);
 
   return (
-    <RenderWrapper>
-      <Location location={location} />
-    </RenderWrapper>
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <RenderWrapper>
+          <Location location={location} />
+          <Pagination currentPage={Number(id)} pages={pages} />
+        </RenderWrapper>
+      )}
+    </>
   );
 };
 

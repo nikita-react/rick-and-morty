@@ -12,10 +12,10 @@ const Header: React.FC = () => {
           </LinkStyled>
           <List>
             <Item>
-              <LinkStyled to="character">Character</LinkStyled>
+              <LinkStyled to="character/page=1">Character</LinkStyled>
             </Item>
             <Item>
-              <LinkStyled to="location">Location</LinkStyled>
+              <LinkStyled to="location/page=1">Location</LinkStyled>
             </Item>
             <Item>
               <LinkStyled to="episode">Episode</LinkStyled>

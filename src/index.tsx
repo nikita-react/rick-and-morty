@@ -8,13 +8,13 @@ import "./basicStyles.css";
 
 const MainComponent: React.FC = () => {
   return (
-    <React.StrictMode>
-      <RecoilRoot>
-        <BrowserRouter>
-          <Routes />
-        </BrowserRouter>
-      </RecoilRoot>
-    </React.StrictMode>
+    // <React.StrictMode>
+    <RecoilRoot>
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+    </RecoilRoot>
+    // </React.StrictMode>
   );
 };
 

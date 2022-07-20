@@ -17,11 +17,9 @@ const Routing: React.FC = () => {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Layout />}>
             <Route index element={<IndexComponent />} />
-
-            <Route path="character" element={<RenderCharacters />} />
             <Route path="character/page=:id" element={<RenderCharacters />} />
             <Route path="character/:id" element={<RenderOneCharacter />} />
-            <Route path="location" element={<RenderLocations />} />
+            <Route path="location/page=:id" element={<RenderLocations />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
