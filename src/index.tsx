@@ -5,15 +5,23 @@ import Routes from "./routes";
 import { RecoilRoot } from "recoil";
 import { BrowserRouter } from "react-router-dom";
 import "./basicStyles.css";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+
+const client = new ApolloClient({
+  uri: "https://rickandmortyapi.com/graphql",
+  cache: new InMemoryCache(),
+});
 
 const MainComponent: React.FC = () => {
   return (
     <React.StrictMode>
-      <RecoilRoot>
-        <BrowserRouter>
-          <Routes />
-        </BrowserRouter>
-      </RecoilRoot>
+      <ApolloProvider client={client}>
+        <RecoilRoot>
+          <BrowserRouter>
+            <Routes />
+          </BrowserRouter>
+        </RecoilRoot>
+      </ApolloProvider>
     </React.StrictMode>
   );
 };

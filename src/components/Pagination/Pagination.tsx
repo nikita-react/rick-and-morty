@@ -20,20 +20,24 @@ const Pagination: React.FC<Props> = ({ pages, currentPage }) => {
   };
   return (
     <>
-      <ReactPaginate
-        className="pagination"
-        pageCount={pages}
-        nextLabel="next page"
-        previousLabel="previous page"
-        nextClassName="btn"
-        previousClassName="btn"
-        pageClassName="pageBtn"
-        activeClassName="active"
-        pageRangeDisplayed={10}
-        marginPagesDisplayed={1}
-        onPageChange={(data) => pageChange(data)}
-        forcePage={currentPage - 1}
-      />
+      {pages ? (
+        <ReactPaginate
+          className="pagination"
+          pageCount={pages}
+          nextLabel="next page"
+          previousLabel="previous page"
+          nextClassName="btn"
+          previousClassName="btn"
+          pageClassName="pageBtn"
+          activeClassName="active"
+          pageRangeDisplayed={10}
+          marginPagesDisplayed={1}
+          onPageChange={(data) => pageChange(data)}
+          forcePage={currentPage - 1}
+        />
+      ) : (
+        <p>error pagination</p>
+      )}
     </>
   );
 };
