@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import api from "../../api";
+import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { locationsState } from "../../atoms";
 import Location from "../Location";
@@ -7,34 +6,35 @@ import { RenderWrapper } from "./styled";
 import Pagination from "../Pagination";
 import { useParams } from "react-router-dom";
 import Loading from "../Loading";
+import { useQuery } from "@apollo/client";
+import { GetLocationAndCount } from "../../queries/locations";
 
 const RenderLocations: React.FC = () => {
   const { id } = useParams();
-
-  const [location, setLocation] = useRecoilState(locationsState);
-  const [pages, setPages] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { loading, data, error } = useQuery(GetLocationAndCount, {
+    variables: { id: id },
+  });
+  const [locationData, setLocationData] = useRecoilState(locationsState);
 
   useEffect(() => {
-    const getData = async () => {
-      const data = await api.locations.getOneLocation(id);
-      const { info } = await api.locations.getLocations();
-
-      setLocation(data);
-      setPages(info.count);
-      setLoading(false);
-    };
-    getData();
-  }, []);
+    if (data) {
+      setLocationData({
+        location: data.location,
+        count: data.locations.info.count,
+      });
+    }
+  }, [data]);
 
   return (
     <>
       {loading ? (
         <Loading />
+      ) : error ? (
+        <p>Sorry, please reload the page</p>
       ) : (
         <RenderWrapper>
-          <Location location={location} />
-          <Pagination currentPage={Number(id)} pages={pages} />
+          <Location />
+          <Pagination currentPage={Number(id)} pages={locationData.count} />
         </RenderWrapper>
       )}
     </>

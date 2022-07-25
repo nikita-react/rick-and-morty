@@ -2,29 +2,21 @@ import React from "react";
 import { List, Item, Img } from "./styled";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
-
+import { locationsState } from "../../atoms";
+import { useRecoilValue } from "recoil";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-interface LocationTypes {
-  location: {
-    name: string;
-    type: string;
-    dimension: string;
-    residents: [];
-  };
-}
-const Location: React.FC<LocationTypes> = ({ location }) => {
-  const { residents } = location;
-  const arrayOfImages =
-    residents && residents.map((resident: any) => resident.split("/").pop());
+const Location: React.FC = () => {
+  const { location } = useRecoilValue(locationsState);
+  const residents: any[] = location?.residents;
 
   return (
     <List>
-      <Item>name: {location.name}</Item>
-      <Item>type: {location.type}</Item>
-      <Item>dimension: {location.dimension}</Item>
+      <Item>name: {location?.name}</Item>
+      <Item>type: {location?.type}</Item>
+      <Item>dimension: {location?.dimension}</Item>
       <Item>
         residents:
         <Swiper
@@ -35,13 +27,10 @@ const Location: React.FC<LocationTypes> = ({ location }) => {
           style={{ padding: "20px 45px 35px" }}
           spaceBetween={45}
         >
-          {arrayOfImages &&
-            arrayOfImages.map((id) => (
+          {residents &&
+            residents.map(({ id, image }) => (
               <SwiperSlide key={id}>
-                <Img
-                  src={`https://rickandmortyapi.com/api/character/avatar/${id}.jpeg`}
-                  alt=""
-                />
+                <Img src={image} alt="" />
               </SwiperSlide>
             ))}
         </Swiper>
