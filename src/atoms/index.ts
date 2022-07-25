@@ -14,3 +14,10 @@ export const episodesState = atom<any[]>({
   key: "episodes",
   default: [],
 });
+
+type Theme = "light" | "dark";
+
+export const theme = atom<Theme>({
+  key: "theme",
+  default: "light",
+});

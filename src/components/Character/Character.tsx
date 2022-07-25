@@ -1,6 +1,8 @@
 import React from "react";
 import { CardCharacter, Text, Image } from "./styled";
 import { LinkStyled } from "../../mainStyled";
+import { useRecoilValue } from "recoil";
+import { theme } from "../../atoms";
 
 interface CharacterProps {
   character: {
@@ -12,12 +14,13 @@ interface CharacterProps {
 
 const Character: React.FC<CharacterProps> = ({ character }) => {
   const { name, image, id } = character;
+  const themeState = useRecoilValue(theme);
 
   return (
     <LinkStyled to={`/character/${id}`}>
       <CardCharacter>
         <Image src={image} />
-        <Text>{name}</Text>
+        <Text colorTheme={themeState}>{name}</Text>
       </CardCharacter>
     </LinkStyled>
   );

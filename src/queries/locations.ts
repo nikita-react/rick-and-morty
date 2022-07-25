@@ -9,6 +9,7 @@ export const GetLocationAndCount = gql`
       residents {
         image
         id
+        name
       }
     }
     locations {

@@ -12,5 +12,7 @@ export const Item = styled.li`
     background-color: #dcdcdc;
   }
 `;
-
+export const Text = styled.p`
+  text-align: center;
+`;
 export const Img = styled.img``;

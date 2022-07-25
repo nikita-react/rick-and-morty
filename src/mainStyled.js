@@ -12,4 +12,7 @@ export const Container = styled.div`
   flex-grow: ${({ flexGrow }) => (flexGrow ? 1 : null)};
 `;
 
-export const LinkStyled = styled(Link)``;
+export const LinkStyled = styled(Link)`
+  color: ${({ colortheme }) => (colortheme === "dark" ? "#fff" : null)};
+  transition: color 0.3s;
+`;

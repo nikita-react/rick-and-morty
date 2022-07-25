@@ -1,9 +1,10 @@
 import React from "react";
-import { List, Item, Img } from "./styled";
+import { List, Item, Img, Text } from "./styled";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 import { locationsState } from "../../atoms";
 import { useRecoilValue } from "recoil";
+import { LinkStyled } from "../../mainStyled";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -28,9 +29,12 @@ const Location: React.FC = () => {
           spaceBetween={45}
         >
           {residents &&
-            residents.map(({ id, image }) => (
+            residents.map(({ id, image, name }) => (
               <SwiperSlide key={id}>
-                <Img src={image} alt="" />
+                <LinkStyled to={`/character/${id}`}>
+                  <Img src={image} alt="" />
+                  <Text>{name}</Text>
+                </LinkStyled>
               </SwiperSlide>
             ))}
         </Swiper>
