@@ -4,9 +4,13 @@ import { Wrapper, Image, List, Item } from "./styled";
 import { GetCharacter } from "../../queries/characters";
 import { useQuery } from "@apollo/client";
 import Loading from "../Loading";
+import { useRecoilValue } from "recoil";
+import { theme } from "../../atoms";
 
 const RenderOneCharacter: React.FC = () => {
   const { id } = useParams();
+  const themeState = useRecoilValue(theme);
+
   const [character, setCharacter] = useState<any>({});
   const { data, loading, error } = useQuery(GetCharacter, {
     variables: { id: id },
@@ -28,13 +32,15 @@ const RenderOneCharacter: React.FC = () => {
         <Wrapper>
           <Image src={character.image} />
           <List>
-            <Item>name: {character.name}</Item>
-            <Item>status: {character.status}</Item>
-            <Item>spicies: {character.species}</Item>
-            <Item>gender: {character.gender}</Item>
-            <Item>type: {character.type}</Item>
+            <Item themeState={themeState}>name: {character.name}</Item>
+            <Item themeState={themeState}>status: {character.status}</Item>
+            <Item themeState={themeState}>spicies: {character.species}</Item>
+            <Item themeState={themeState}>gender: {character.gender}</Item>
+            <Item themeState={themeState}>type: {character.type}</Item>
             {character.location !== undefined && (
-              <Item>location: {character.location.name}</Item>
+              <Item themeState={themeState}>
+                location: {character.location.name}
+              </Item>
             )}
           </List>
         </Wrapper>

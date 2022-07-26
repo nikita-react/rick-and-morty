@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import {
   HeaderStyled,
   HeaderNavigation,
@@ -10,14 +10,16 @@ import {
 import { Container, LinkStyled } from "../../mainStyled";
 import logo from "../../images/Rick-and-Morty__svg-logo.svg";
 import Switch from "../SwitchButton";
-import { theme } from "../../atoms";
+import { theme, switchState } from "../../atoms";
 import { useRecoilState } from "recoil";
 
 const Header: React.FC = () => {
   const [themeState, setThemeState] = useRecoilState(theme);
+  const [checked, setSwithState] = useRecoilState(switchState);
 
   const changeTheme = (e: ChangeEvent<HTMLInputElement>) => {
     const changedTheme = e.target.checked;
+    setSwithState(changedTheme);
     changedTheme ? setThemeState("dark") : setThemeState("light");
   };
 
@@ -46,7 +48,11 @@ const Header: React.FC = () => {
                 </LinkStyled>
               </Item>
               <Item>
-                <Switch onChange={changeTheme} />
+                <Switch
+                  checked={checked}
+                  onChange={changeTheme}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
               </Item>
             </List>
           </Wrapper>

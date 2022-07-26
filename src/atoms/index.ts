@@ -21,3 +21,8 @@ export const theme = atom<Theme>({
   key: "theme",
   default: "light",
 });
+
+export const switchState = atom<boolean>({
+  key: "switch",
+  default: false,
+});

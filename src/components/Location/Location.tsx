@@ -8,17 +8,20 @@ import { LinkStyled } from "../../mainStyled";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { theme } from "../../atoms";
 
 const Location: React.FC = () => {
   const { location } = useRecoilValue(locationsState);
+  const themeState = useRecoilValue(theme);
+
   const residents: any[] = location?.residents;
 
   return (
     <List>
-      <Item>name: {location?.name}</Item>
-      <Item>type: {location?.type}</Item>
-      <Item>dimension: {location?.dimension}</Item>
-      <Item>
+      <Item themeState={themeState}>name: {location?.name}</Item>
+      <Item themeState={themeState}>type: {location?.type}</Item>
+      <Item themeState={themeState}>dimension: {location?.dimension}</Item>
+      <Item themeState={themeState}>
         residents:
         <Swiper
           modules={[Navigation, Pagination]}
@@ -33,7 +36,7 @@ const Location: React.FC = () => {
               <SwiperSlide key={id}>
                 <LinkStyled to={`/character/${id}`}>
                   <Img src={image} alt="" />
-                  <Text>{name}</Text>
+                  <Text themeState={themeState}>{name}</Text>
                 </LinkStyled>
               </SwiperSlide>
             ))}

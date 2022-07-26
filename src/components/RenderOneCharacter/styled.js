@@ -17,7 +17,12 @@ export const List = styled.ul`
 
 export const Item = styled.li`
   padding: 10px 0;
+  transition: all 0.3s;
+  color: ${({ themeState }) => (themeState === "dark" ? "#fff" : null)};
+  background-color: ${({ themeState }) =>
+    themeState === "dark" ? "#303135" : null};
   &:nth-child(odd) {
     background-color: #dcdcdc;
+    color: #444;
   }
 `;
