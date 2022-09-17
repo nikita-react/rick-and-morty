@@ -23,7 +23,9 @@ export const Wrapper = styled.div`
 `;
 
 export const Image = styled.img`
-  width: 120px;
+  width: auto;
+  height: 37px;
+
   filter: ${({ colorImg }) =>
     colorImg === "dark"
       ? "brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(5562%) hue-rotate(179deg) brightness(121%) contrast(112%)"
