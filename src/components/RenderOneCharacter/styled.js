@@ -16,7 +16,7 @@ export const List = styled.ul`
 `;
 
 export const Item = styled.li`
-  padding: 10px 0;
+  padding: 10px 5px 10px 10px;
   transition: all 0.3s;
   color: ${({ themeState }) => (themeState === "dark" ? "#fff" : null)};
   background-color: ${({ themeState }) =>
