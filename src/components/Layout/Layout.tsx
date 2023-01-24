@@ -4,7 +4,6 @@ import { Content, Wrapper } from "./styled";
 import { Container } from "../../mainStyled";
 import { Outlet } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useRecoilState } from "recoil";
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import { changeTheme } from "../../store/themeSlice";
 
@@ -22,7 +21,7 @@ const Layout: React.FC = () => {
     setSwitcherState(switcher);
 
     setMounted(true);
-  }, []);
+  }, [switcherState]);
 
   return (
     <>

@@ -8,11 +8,11 @@ import { LinkStyled } from "../../mainStyled";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { theme } from "../../atoms";
+import { useAppSelector } from "../../hooks";
 
 const Location: React.FC = () => {
   const { location } = useRecoilValue(locationsState);
-  const themeState = useRecoilValue(theme);
+  const themeState = useAppSelector((state) => state.theme.default);
 
   const residents: any[] = location?.residents;
 

@@ -5,11 +5,11 @@ import { GetCharacter } from "../../queries/characters";
 import { useQuery } from "@apollo/client";
 import Loading from "../Loading";
 import { useRecoilValue } from "recoil";
-import { theme } from "../../atoms";
+import { useAppSelector } from "../../hooks";
 
 const RenderOneCharacter: React.FC = () => {
   const { id } = useParams();
-  const themeState = useRecoilValue(theme);
+  const themeState = useAppSelector((state) => state.theme.default);
 
   const [character, setCharacter] = useState<any>({});
   const { data, loading, error } = useQuery(GetCharacter, {
