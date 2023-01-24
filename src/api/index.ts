@@ -16,7 +16,7 @@ const api = {
       fetch(LOCATION_URL).then((res) => res.json()),
   },
   episodes: {
-    getLocations: (): Promise<any> =>
+    getEpizodes: (): Promise<any> =>
       fetch(EPISODES_URL).then((res) => res.json()),
   },
 };
