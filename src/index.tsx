@@ -2,26 +2,20 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import Routes from "./routes";
-import { RecoilRoot } from "recoil";
 import { BrowserRouter } from "react-router-dom";
 import "./basicStyles.css";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
-const client = new ApolloClient({
-  uri: "https://rickandmortyapi.com/graphql",
-  cache: new InMemoryCache(),
-});
+import { Provider } from "react-redux";
+import store from "./store";
 
 const MainComponent: React.FC = () => {
   return (
     <React.StrictMode>
-      <ApolloProvider client={client}>
-        <RecoilRoot>
-          <BrowserRouter>
-            <Routes />
-          </BrowserRouter>
-        </RecoilRoot>
-      </ApolloProvider>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes />
+        </BrowserRouter>
+      </Provider>
     </React.StrictMode>
   );
 };

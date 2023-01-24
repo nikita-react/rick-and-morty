@@ -10,19 +10,35 @@ import {
 import { Container, LinkStyled } from "../../mainStyled";
 import logo from "../../images/Rick-and-Morty__svg-logo.svg";
 import Switch from "../SwitchButton";
-import { useRecoilValue } from "recoil";
-import { theme } from "../../atoms";
+import { useAppSelector } from "../../hooks";
 
 interface HeaderProps {
-  checked: boolean;
-  setTheme: any;
+  switcherState: boolean;
+  setSwitcherState: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const Header: React.FC<HeaderProps> = ({ checked, setTheme }) => {
-  const themeState = useRecoilValue(theme);
+
+const Header: React.FC<HeaderProps> = ({ switcherState, setSwitcherState }) => {
+  const themeState = useAppSelector((state) => state.theme.default);
+
   const changeTheme = (e: ChangeEvent<HTMLInputElement>) => {
-    const changedTheme = e.target.checked;
-    localStorage.setItem("changedTheme", JSON.stringify(changedTheme));
-    setTheme(changedTheme);
+    setSwitcherState(e.target.checked);
+    if (e.target.checked) {
+      localStorage.setItem(
+        "changedTheme",
+        JSON.stringify({
+          color: "dark",
+          switcher: true,
+        })
+      );
+    } else {
+      localStorage.setItem(
+        "changedTheme",
+        JSON.stringify({
+          color: "light",
+          switcher: false,
+        })
+      );
+    }
   };
 
   return (
@@ -51,7 +67,7 @@ const Header: React.FC<HeaderProps> = ({ checked, setTheme }) => {
               </Item>
               <Item>
                 <Switch
-                  checked={checked}
+                  checked={switcherState}
                   onChange={changeTheme}
                   inputProps={{ "aria-label": "controlled" }}
                 />

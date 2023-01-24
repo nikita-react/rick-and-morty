@@ -4,25 +4,23 @@ import { Content, Wrapper } from "./styled";
 import { Container } from "../../mainStyled";
 import { Outlet } from "react-router-dom";
 import { motion } from "framer-motion";
-import { theme, switchState } from "../../atoms";
 import { useRecoilState } from "recoil";
+import { useAppSelector, useAppDispatch } from "../../hooks";
+import { changeTheme } from "../../store/themeSlice";
 
 const Layout: React.FC = () => {
-  const [themeState, setThemeState] = useRecoilState(theme);
-  const [checked, setSwithState] = useRecoilState(switchState);
   const [mounted, setMounted] = useState(false);
-
-  const setTheme = (status: boolean) => {
-    setSwithState(status);
-    status ? setThemeState("dark") : setThemeState("light");
-  };
-
+  const themeState = useAppSelector((state) => state.theme.default);
+  const dispatch = useAppDispatch();
+  const [switcherState, setSwitcherState] = useState<boolean>(false);
   useEffect(() => {
-    const themeStatus = localStorage.getItem("changedTheme");
-
+    const themeStatus: any = localStorage.getItem("changedTheme");
+    const { color, switcher } = JSON.parse(themeStatus);
     if (themeStatus) {
-      setTheme(JSON.parse(themeStatus));
+      dispatch(changeTheme(color));
     }
+    setSwitcherState(switcher);
+
     setMounted(true);
   }, []);
 
@@ -30,7 +28,10 @@ const Layout: React.FC = () => {
     <>
       {mounted ? (
         <Wrapper themeState={themeState}>
-          <Header checked={checked} setTheme={setTheme} />
+          <Header
+            setSwitcherState={setSwitcherState}
+            switcherState={switcherState}
+          />
           <motion.div
             initial={{ x: "-300px", opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
