@@ -18,8 +18,11 @@ const Layout: React.FC = () => {
   };
 
   useEffect(() => {
-    const themeStatus = JSON.parse(localStorage.getItem("changedTheme") || "");
-    setTheme(themeStatus);
+    const themeStatus = localStorage.getItem("changedTheme");
+
+    if (themeStatus) {
+      setTheme(JSON.parse(themeStatus));
+    }
     setMounted(true);
   }, []);
 
