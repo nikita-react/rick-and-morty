@@ -3,11 +3,12 @@ import api from "../api";
 
 export const getAllLocationsThunk = createAsyncThunk<
   {},
-  undefined,
+  string,
   { rejectValue: string }
->("locations/getAllLocationsThunk", async function (_, { rejectWithValue }) {
-  const response = await api.locations.getLocations();
+>("locations/getAllLocationsThunk", async function (id, { rejectWithValue }) {
+  const response = await api.locations.getOneLocation(id);
   if (response.error) {
+    return rejectWithValue(response.error);
   }
   return response;
 });
@@ -32,7 +33,7 @@ const locationsSLice = createSlice({
     builder
       .addCase(getAllLocationsThunk.pending, (state) => {
         state.loading = true;
-        state.error;
+        state.error = null;
       })
       .addCase(getAllLocationsThunk.fulfilled, (state, action) => {
         state.loading = false;
