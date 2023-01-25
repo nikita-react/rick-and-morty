@@ -1,27 +1,33 @@
 import React, { useEffect } from "react";
 import Character from "../Character";
-import { useRecoilState } from "recoil";
-import { charactersState } from "../../atoms";
 import { RenderWrapper } from "./styled";
 import Pagination from "../Pagination";
 import { useParams } from "react-router-dom";
 import Loading from "../Loading";
-import { useQuery } from "@apollo/client";
-import { GetAllCharacters } from "../../queries/characters";
+import { useAppSelector, useAppDispatch } from "../../hooks";
+import { getAllCharactersThunk } from "../../store/charactersSlice";
+
+interface charactersDataTypes {
+  results?: any[];
+  info?: {
+    pages: number;
+  };
+}
 
 const RenderCharacters: React.FC = () => {
   const { id } = useParams();
+  const dispatch = useAppDispatch();
+  const { error, loading, charactersData } = useAppSelector(
+    (state) => state.characters
+  );
 
-  const { loading, data, error } = useQuery(GetAllCharacters, {
-    variables: { page: Number(id) },
-  });
-  const [characters, setCharacters] = useRecoilState(charactersState);
-  const { results, info }: { results: any[]; info: any } = characters;
+  const { results, info }: charactersDataTypes = charactersData;
+
   useEffect(() => {
-    if (data) {
-      setCharacters(data.characters);
+    if (id) {
+      dispatch(getAllCharactersThunk(id));
     }
-  }, [loading]);
+  }, [dispatch]);
 
   return (
     <>

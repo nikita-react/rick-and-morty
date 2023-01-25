@@ -5,7 +5,7 @@ import "./style.css";
 import { useLocation } from "react-router-dom";
 
 interface Props {
-  pages: number;
+  pages: number | undefined;
   currentPage: number;
 }
 

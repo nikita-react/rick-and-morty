@@ -10,13 +10,11 @@ import store from "./store";
 
 const MainComponent: React.FC = () => {
   return (
-    <React.StrictMode>
-      <Provider store={store}>
-        <BrowserRouter>
-          <Routes />
-        </BrowserRouter>
-      </Provider>
-    </React.StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+    </Provider>
   );
 };
 

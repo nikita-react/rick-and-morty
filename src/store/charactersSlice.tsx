@@ -5,26 +5,24 @@ export const getAllCharactersThunk = createAsyncThunk<
   any,
   string,
   { rejectValue: string }
->(
-  "characters/getAllCharactersThunk",
-  async function (pageNumber, { rejectWithValue }) {
-    const response = await api.characters.getCharacters(pageNumber);
-    if (!response.ok) {
-      return rejectWithValue("error server");
-    }
-    const data = await response.json();
-    return data;
+>("characters/getAllCharactersThunk", async function (id, { rejectWithValue }) {
+  const response = await api.characters.getCharacters(id);
+
+  if (response.error) {
+    return rejectWithValue("error server");
   }
-);
+
+  return response;
+});
 
 type charactersType = {
-  characters: {};
-  status: null | string;
+  charactersData: {};
+  loading: null | boolean;
   error: any;
 };
 const initialState: charactersType = {
-  characters: {},
-  status: null,
+  charactersData: {},
+  loading: null,
   error: null,
 };
 const charactersSlice = createSlice({
@@ -34,16 +32,16 @@ const charactersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAllCharactersThunk.pending, (state) => {
-        state.status = "loading";
+        state.loading = true;
         state.error = null;
       })
       .addCase(getAllCharactersThunk.fulfilled, (state, action) => {
-        state.status = "loaded";
-        state.characters = action.payload;
+        state.loading = false;
+        state.charactersData = action.payload;
       })
       .addCase(getAllCharactersThunk.rejected, (state, action) => {
-        state.status = "rejected";
         state.error = action.payload;
+        state.loading = null;
       });
   },
 });

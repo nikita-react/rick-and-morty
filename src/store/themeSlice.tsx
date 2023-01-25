@@ -1,17 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// type ThemeType = {
-//   default: string;
-// };
+type ThemeType = {
+  default: string;
+};
 
-// const initialState: ThemeType = {
-//   default: "light",
-// };
+const initialState: ThemeType = {
+  default: "light",
+};
+
 const themeSlice = createSlice({
   name: "theme",
-  initialState: {
-    default: "light",
-  },
+  initialState,
   reducers: {
     changeTheme(state, action) {
       state.default = action.payload;

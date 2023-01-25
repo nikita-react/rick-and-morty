@@ -12,6 +12,7 @@ const Layout: React.FC = () => {
   const themeState = useAppSelector((state) => state.theme.default);
   const dispatch = useAppDispatch();
   const [switcherState, setSwitcherState] = useState<boolean>(false);
+
   useEffect(() => {
     const themeStatus: any = localStorage.getItem("changedTheme");
     const { color, switcher } = JSON.parse(themeStatus);
