@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import charactersSlice from "./charactersSlice";
+import locationSlice from "./locationSlice";
 import themeSlice from "./themeSlice";
 
 const store = configureStore({
   reducer: {
     characters: charactersSlice,
+    locations: locationSlice,
     theme: themeSlice,
   },
 });

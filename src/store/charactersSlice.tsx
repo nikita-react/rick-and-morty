@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../api";
 
 export const getAllCharactersThunk = createAsyncThunk<
-  any,
+  {},
   string,
   { rejectValue: string }
 >("characters/getAllCharactersThunk", async function (id, { rejectWithValue }) {
