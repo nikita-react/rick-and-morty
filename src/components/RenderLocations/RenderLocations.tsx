@@ -5,34 +5,39 @@ import Pagination from "../Pagination";
 import { useParams } from "react-router-dom";
 import Loading from "../Loading";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { getAllLocationsThunk } from "../../store/locationSlice";
+import { getAllLocationThunk } from "../../store/locationSlice";
+
+interface locationsDataTypes {
+  info?: {
+    count: number;
+  };
+}
 
 const RenderLocations: React.FC = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const { locationData, loading, error } = useAppSelector(
+  const { error, loading, locationData } = useAppSelector(
     (state) => state.locations
   );
+  const { info }: locationsDataTypes = locationData;
 
   useEffect(() => {
-    if (id) {
-      dispatch(getAllLocationsThunk(id));
-    }
+    dispatch(getAllLocationThunk());
   }, [dispatch]);
 
   return (
-    // <>
-    //   {loading ? (
-    //     <Loading />
-    //   ) : error ? (
-    //     <p>Sorry, please reload the page</p>
-    //   ) : (
-    //     <RenderWrapper>
-    //       <Location />
-    //       <Pagination currentPage={Number(id)} pages={locationData.count} />
-    //     </RenderWrapper>
-    //   )}
-    // </>
+    <>
+      {loading ? (
+        <Loading />
+      ) : error ? (
+        <p>Sorry, please reload the page</p>
+      ) : (
+        <RenderWrapper>
+          <Location />
+          <Pagination currentPage={Number(id)} pages={info?.count} />
+        </RenderWrapper>
+      )}
+    </>
   );
 };
 

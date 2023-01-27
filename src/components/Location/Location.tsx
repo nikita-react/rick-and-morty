@@ -1,26 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { List, Item, Img, Text } from "./styled";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
-import { locationsState } from "../../atoms";
-import { useRecoilValue } from "recoil";
 import { LinkStyled } from "../../mainStyled";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { useAppSelector } from "../../hooks";
+import { useAppSelector, useAppDispatch } from "../../hooks";
+import { getLocationThunk } from "../../store/locationSlice";
+import { useParams } from "react-router-dom";
+
+type oneLocationDataTypes = {
+  name: string;
+  type: string;
+  dimension: string;
+  residents: string[];
+};
 
 const Location: React.FC = () => {
-  const { location } = useRecoilValue(locationsState);
+  const { id } = useParams();
   const themeState = useAppSelector((state) => state.theme.default);
+  const { oneLocationData } = useAppSelector((state) => state.locations);
+  const dispatch = useAppDispatch();
 
-  const residents: any[] = location?.residents;
+  console.log(oneLocationData);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getLocationThunk(id));
+    }
+  }, []);
 
   return (
     <List>
-      <Item themeState={themeState}>name: {location?.name}</Item>
-      <Item themeState={themeState}>type: {location?.type}</Item>
-      <Item themeState={themeState}>dimension: {location?.dimension}</Item>
+      <Item themeState={themeState}>name: {oneLocationData?.name}</Item>
+      <Item themeState={themeState}>type: {oneLocationData?.type}</Item>
+      <Item themeState={themeState}>
+        dimension: {oneLocationData?.dimension}
+      </Item>
       <Item themeState={themeState}>
         residents:
         <Swiper

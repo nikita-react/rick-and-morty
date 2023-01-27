@@ -1,11 +1,23 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../api";
 
-export const getAllLocationsThunk = createAsyncThunk<
+export const getAllLocationThunk = createAsyncThunk<
+  {},
+  undefined,
+  { rejectValue: string }
+>("locations/getAllLocationThunk", async function (_, { rejectWithValue }) {
+  const response = await api.locations.getLocations();
+  if (response.error) {
+    return rejectWithValue(response.error);
+  }
+  return response;
+});
+
+export const getLocationThunk = createAsyncThunk<
   {},
   string,
   { rejectValue: string }
->("locations/getAllLocationsThunk", async function (id, { rejectWithValue }) {
+>("locations/getLocationThunk", async function (id, { rejectWithValue }) {
   const response = await api.locations.getOneLocation(id);
   if (response.error) {
     return rejectWithValue(response.error);
@@ -15,14 +27,20 @@ export const getAllLocationsThunk = createAsyncThunk<
 
 type initialStateType = {
   locationData: {};
+  oneLocationData: {};
   loading: null | boolean;
   error: any;
+  oneLocationLoading: null | boolean;
+  oneLocationError: any;
 };
 
 const initialState: initialStateType = {
   locationData: {},
+  oneLocationData: {},
   loading: null,
   error: null,
+  oneLocationLoading: null,
+  oneLocationError: null,
 };
 
 const locationsSLice = createSlice({
@@ -31,17 +49,29 @@ const locationsSLice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllLocationsThunk.pending, (state) => {
+      .addCase(getAllLocationThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(getAllLocationsThunk.fulfilled, (state, action) => {
+      .addCase(getAllLocationThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.locationData = action.payload;
       })
-      .addCase(getAllLocationsThunk.rejected, (state, action) => {
+      .addCase(getAllLocationThunk.rejected, (state, action) => {
         state.error = action.payload;
         state.loading = null;
+      })
+      .addCase(getLocationThunk.pending, (state) => {
+        state.oneLocationLoading = true;
+        state.oneLocationError = null;
+      })
+      .addCase(getLocationThunk.fulfilled, (state, action) => {
+        state.oneLocationLoading = false;
+        state.oneLocationData = action.payload;
+      })
+      .addCase(getLocationThunk.rejected, (state, action) => {
+        state.oneLocationError = action.payload;
+        state.oneLocationLoading = null;
       });
   },
 });
