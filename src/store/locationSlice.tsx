@@ -1,79 +1,34 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import api from "../api";
-
-export const getAllLocationThunk = createAsyncThunk<
-  {},
-  undefined,
-  { rejectValue: string }
->("locations/getAllLocationThunk", async function (_, { rejectWithValue }) {
-  const response = await api.locations.getLocations();
-  if (response.error) {
-    return rejectWithValue(response.error);
-  }
-  return response;
-});
-
-export const getLocationThunk = createAsyncThunk<
-  {},
-  string,
-  { rejectValue: string }
->("locations/getLocationThunk", async function (id, { rejectWithValue }) {
-  const response = await api.locations.getOneLocation(id);
-  if (response.error) {
-    return rejectWithValue(response.error);
-  }
-  return response;
-});
+import { from } from "@apollo/client";
+import { createSlice } from "@reduxjs/toolkit";
 
 type initialStateType = {
-  locationData: {};
-  oneLocationData: {};
-  loading: null | boolean;
-  error: any;
-  oneLocationLoading: null | boolean;
-  oneLocationError: any;
+  locationData: {
+    count: number;
+    location: any;
+  };
+  locationLoading: null | boolean;
+  locationError: any;
 };
 
 const initialState: initialStateType = {
-  locationData: {},
-  oneLocationData: {},
-  loading: null,
-  error: null,
-  oneLocationLoading: null,
-  oneLocationError: null,
+  locationData: {
+    count: 1,
+    location: {},
+  },
+  locationLoading: null,
+  locationError: null,
 };
 
 const locationsSLice = createSlice({
   name: "locations",
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(getAllLocationThunk.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(getAllLocationThunk.fulfilled, (state, action) => {
-        state.loading = false;
-        state.locationData = action.payload;
-      })
-      .addCase(getAllLocationThunk.rejected, (state, action) => {
-        state.error = action.payload;
-        state.loading = null;
-      })
-      .addCase(getLocationThunk.pending, (state) => {
-        state.oneLocationLoading = true;
-        state.oneLocationError = null;
-      })
-      .addCase(getLocationThunk.fulfilled, (state, action) => {
-        state.oneLocationLoading = false;
-        state.oneLocationData = action.payload;
-      })
-      .addCase(getLocationThunk.rejected, (state, action) => {
-        state.oneLocationError = action.payload;
-        state.oneLocationLoading = null;
-      });
+  reducers: {
+    addLocationData(state, action) {
+      state.locationData = action.payload.data;
+      state.locationLoading = action.payload.loading;
+      state.locationError = action.payload.error;
+    },
   },
 });
-
+export const { addLocationData } = locationsSLice.actions;
 export default locationsSLice.reducer;

@@ -4,17 +4,24 @@ import reportWebVitals from "./reportWebVitals";
 import Routes from "./routes";
 import { BrowserRouter } from "react-router-dom";
 import "./basicStyles.css";
-
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { Provider } from "react-redux";
 import store from "./store";
 
+const client = new ApolloClient({
+  uri: "https://rickandmortyapi.com/graphql",
+  cache: new InMemoryCache(),
+});
+
 const MainComponent: React.FC = () => {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes />
-      </BrowserRouter>
-    </Provider>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes />
+        </BrowserRouter>
+      </Provider>
+    </ApolloProvider>
   );
 };
 

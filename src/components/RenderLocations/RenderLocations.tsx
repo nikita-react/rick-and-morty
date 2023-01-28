@@ -5,36 +5,45 @@ import Pagination from "../Pagination";
 import { useParams } from "react-router-dom";
 import Loading from "../Loading";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { getAllLocationThunk } from "../../store/locationSlice";
-
-interface locationsDataTypes {
-  info?: {
-    count: number;
-  };
-}
+import { useQuery } from "@apollo/client";
+import { GetLocationAndCount } from "../../queries/locations";
+import { addLocationData } from "../../store/locationSlice";
 
 const RenderLocations: React.FC = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const { error, loading, locationData } = useAppSelector(
+  const { loading, data, error } = useQuery(GetLocationAndCount, {
+    variables: { id: id },
+  });
+  const { locationError, locationLoading, locationData } = useAppSelector(
     (state) => state.locations
   );
-  const { info }: locationsDataTypes = locationData;
 
   useEffect(() => {
-    dispatch(getAllLocationThunk());
-  }, [dispatch]);
+    if (data) {
+      dispatch(
+        addLocationData({
+          loading,
+          data: {
+            location: data.location,
+            count: data.locations.info.count,
+          },
+          error,
+        })
+      );
+    }
+  }, [id, data]);
 
   return (
     <>
-      {loading ? (
+      {locationLoading ? (
         <Loading />
       ) : error ? (
         <p>Sorry, please reload the page</p>
       ) : (
         <RenderWrapper>
           <Location />
-          <Pagination currentPage={Number(id)} pages={info?.count} />
+          <Pagination currentPage={Number(id)} pages={locationData.count} />
         </RenderWrapper>
       )}
     </>
