@@ -15,11 +15,12 @@ const Layout: React.FC = () => {
 
   useEffect(() => {
     const themeStatus: any = localStorage.getItem("changedTheme");
-    const { color, switcher } = JSON.parse(themeStatus);
+
     if (themeStatus) {
+      const { color, switcher } = JSON.parse(themeStatus);
       dispatch(changeTheme(color));
+      setSwitcherState(switcher);
     }
-    setSwitcherState(switcher);
 
     setMounted(true);
   }, [switcherState]);
